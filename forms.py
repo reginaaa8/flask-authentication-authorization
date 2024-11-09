@@ -3,7 +3,7 @@ from wtforms import StringField, EmailField
 from wtforms.validators import Length 
 
 class RegisterUserForm(FlaskForm):
-    username = StringField("Pet Name")
+    username = StringField("Username")
 
     password = StringField("Password")
     
