@@ -1,5 +1,5 @@
 """Auth Exercise"""
-from flask import Flask
+from flask import Flask, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 
@@ -12,3 +12,8 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 connect_db(app)
+
+@app.route
+def index():
+    """redirect to register"""
+    return redirect(/register)
