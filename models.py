@@ -12,9 +12,8 @@ class User(db.Model):
     """user"""
     __tablename__ = "users"
     
-    username = db.Column(db.String, 
+    username = db.Column(db.String(20), 
                      nullable=False, 
-                     max=20,
                      primary_key=True)
     
     password = db.Column(db.String, 
@@ -23,10 +22,8 @@ class User(db.Model):
     email = db.Column(db.String,
                           nullable=False)
 
-    first_name = db.Column(db.String, 
-                     nullable=False, 
-                     max=30)
+    first_name = db.Column(db.String(30), 
+                     nullable=False)
     
-    last_name = db.Column(db.String, 
-                     nullable=False, 
-                     max=30)
+    last_name = db.Column(db.String(30), 
+                     nullable=False)
