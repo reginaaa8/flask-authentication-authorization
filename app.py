@@ -13,7 +13,8 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 connect_db(app)
 
-@app.route
+@app.route("/")
 def index():
     """redirect to register"""
     return redirect(/register)
+
