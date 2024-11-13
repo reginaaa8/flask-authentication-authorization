@@ -26,7 +26,7 @@ def register_user():
     if form.validate_on_submit():
         data = {k: v for k, v in form.data.items() if k != "csrf_token"}
 
-        new_user = Pet(**data)
+        new_user = User(**data)
 
         db.session.add(new_user)
         db.session.commit()
@@ -35,4 +35,6 @@ def register_user():
     
     else:
         return render_template("register_user.html", form=form)
+    
+
 
