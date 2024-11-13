@@ -19,8 +19,20 @@ def index():
     """redirect to register"""
     return redirect("/register")
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register_user():
     """register new user"""
     form = RegisterUserForm()
-    return render_template("register_user.html", form=form)
+    if form.validate_on_submit():
+        data = {k: v for k, v in form.data.items() if k != "csrf_token"}
+
+        new_user = Pet(**data)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect("/secret")
+    
+    else:
+        return render_template("register_user.html", form=form)
+
