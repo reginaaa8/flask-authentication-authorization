@@ -2,7 +2,7 @@
 from flask import Flask, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
-from forms import RegisterUserForm
+from forms import RegisterUserForm, UserLoginForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///auth_db"
@@ -35,6 +35,12 @@ def register_user():
     
     else:
         return render_template("register_user.html", form=form)
-    
+
+@app.route("/login")
+def user_login():
+    """user login"""
+    form = UserLoginForm()
+
+    return render_template("user_login.html", form=form)
 
 
