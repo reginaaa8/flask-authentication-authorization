@@ -36,11 +36,20 @@ def register_user():
     else:
         return render_template("register_user.html", form=form)
 
-@app.route("/login")
+@app.route("/login", methods=["POST", "GET"])
 def user_login():
     """user login"""
     form = UserLoginForm()
 
+    if form.validate_on_submit():
+
+        return redirect("/secret")
+
     return render_template("user_login.html", form=form)
+
+@app.route("/secret")
+def secret():
+    """show logged in user secret page"""
+    return render_template("secret.html")
 
 
