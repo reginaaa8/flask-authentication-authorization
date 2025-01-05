@@ -1,5 +1,5 @@
 """Auth Exercise"""
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 from forms import RegisterUserForm, UserLoginForm
@@ -30,6 +30,7 @@ def register_user():
 
         db.session.add(new_user)
         db.session.commit()
+        session["username"] = new_user.username
 
         return redirect("/secret")
     
@@ -43,6 +44,10 @@ def user_login():
 
     if form.validate_on_submit():
 
+        username = form.username.data
+        password = form.password.data
+        session["username"] = User.username
+
         return redirect("/secret")
 
     return render_template("user_login.html", form=form)
@@ -50,6 +55,9 @@ def user_login():
 @app.route("/secret")
 def secret():
     """show logged in user secret page"""
-    return render_template("secret.html")
+    if "username" in session:
+        return render_template("secret.html")
+    else:
+        return redirect("/login")
 
 
