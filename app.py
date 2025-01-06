@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 from forms import RegisterUserForm, UserLoginForm
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///auth_db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

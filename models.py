@@ -1,6 +1,8 @@
 """Models for users and feedback"""
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+
 
 db = SQLAlchemy()
 
@@ -27,3 +29,12 @@ class User(db.Model):
     
     last_name = db.Column(db.String(30), 
                      nullable=False)
+    
+    @classmethod
+    def register(cls, username, password):
+        """register user with hashed password and return user"""
+
+        hashed = Bcrypt.generate_password_hash(password)
+        hashed_utf8 = hashed.decode("utf8")
+
+        return cls(username=username, password=hashed_utf8)
