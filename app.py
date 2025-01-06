@@ -1,7 +1,7 @@
 """Auth Exercise"""
 from flask import Flask, redirect, render_template, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, bcrypt
 from forms import RegisterUserForm, UserLoginForm
 
 
@@ -25,9 +25,12 @@ def register_user():
     """register new user"""
     form = RegisterUserForm()
     if form.validate_on_submit():
-        data = {k: v for k, v in form.data.items() if k != "csrf_token"}
-
-        new_user = User(**data)
+        new_user = User.register(
+            form.username.data, 
+            form.password.data, 
+            form.email.data, 
+            form.first_name.data, 
+            form.last_name.data)
 
         db.session.add(new_user)
         db.session.commit()
