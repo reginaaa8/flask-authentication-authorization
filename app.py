@@ -1,5 +1,5 @@
 """Auth Exercise"""
-from flask import Flask, redirect, render_template, session
+from flask import Flask, redirect, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, bcrypt
 from forms import RegisterUserForm, UserLoginForm
@@ -58,8 +58,9 @@ def user_login():
 @app.route("/users/<username>")
 def show_user_info(username):
     """show logged in user their info"""
-    # if "username" not in session or username != session['username']:
-    #     raise Unauthorized
+    if "username" not in session or username != session['username']:
+        flash("You are not authorized to view this page. Please sign in", "danger") 
+        return redirect("/login")
     user = User.query.get_or_404(username)
 
     return render_template("user_info.html", user=user)
