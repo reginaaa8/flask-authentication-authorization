@@ -10,5 +10,13 @@
     <li>Last Name: {{ user.last_name }}</li>
 </ul>
 
+<h2>Feedback</h2>
+<ul>
+{% for feedback in user.feedback %}
+<li>{{ feedback }}</li>
+{% endfor %}
+</ul>
+
+<a href="/logout">logout</a>
 
 {% endblock %}

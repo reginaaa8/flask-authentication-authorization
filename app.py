@@ -36,7 +36,7 @@ def register_user():
         db.session.commit()
         session["username"] = new_user.username
 
-        return redirect("/secret")
+        return redirect(f"/users/{new_user.username}")
     
     else:
         return render_template("register_user.html", form=form)
@@ -58,8 +58,8 @@ def user_login():
 @app.route("/users/<username>")
 def show_user_info(username):
     """show logged in user their info"""
-    if "username" not in session or username != session['username']:
-        raise Unauthorized
+    # if "username" not in session or username != session['username']:
+    #     raise Unauthorized
     user = User.query.get_or_404(username)
 
     return render_template("user_info.html", user=user)
