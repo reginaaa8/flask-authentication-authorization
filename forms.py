@@ -20,3 +20,7 @@ class UserLoginForm(FlaskForm):
 
     password = PasswordField("Password")
 
+class FeedbackForm(Flaskform):
+    title = StringField("title")
+    
+    content = StringField("content")
