@@ -62,5 +62,11 @@ def secret():
         return render_template("secret.html")
     else:
         return redirect("/login")
+    
+@app.route("/logout")
+def logout():
+    """log user our"""
+    session.clear()
+    return redirect("/")
 
 
