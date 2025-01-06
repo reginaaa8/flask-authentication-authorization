@@ -48,9 +48,8 @@ def user_login():
 
     if form.validate_on_submit():
 
-        username = form.username.data
-        password = form.password.data
-        session["username"] = User.username
+        user = User.authenticate(form.username.data, form.password.data)
+        session["username"] = user.username
 
         return redirect("/secret")
 
