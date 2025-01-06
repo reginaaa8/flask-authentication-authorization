@@ -13,10 +13,12 @@
 <h2>Feedback</h2>
 <ul>
 {% for feedback in user.feedback %}
-<li>{{ feedback }} <a href="">edit</a></li>
+<li>{{ feedback }} <a href="">edit</a> <a href="">delete</a></li>
 {% endfor %}
 </ul>
 
+<a href="">Add Feedback</a>
 <a href="/logout">logout</a>
+<a href="">Delete User</a>
 
 {% endblock %}
