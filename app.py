@@ -1,7 +1,7 @@
 """Auth Exercise"""
 from flask import Flask, redirect, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, bcrypt
+from models import db, connect_db, User, bcrypt, Feedback
 from forms import RegisterUserForm, UserLoginForm
 
 
@@ -70,5 +70,27 @@ def logout():
     """log user our"""
     session.clear()
     return redirect("/")
+
+@app.route("/users/<username>/delete", methods=["POST"])
+def delete_user(username):
+    """delete user"""
+    if "username" not in session or username != session['username']:
+        flash("You are not authorized to view this page. Please sign in", "danger") 
+        return redirect("/login")
+    
+    user = User.query.get_or_404(username)
+    # delete all the user's feedback
+    Feedback.query.filter_by(username=username).delete()
+
+    # delete the user from the db
+    db.session.delete(user)
+    db.session.commit()
+
+    # remove user from session 
+    session.pop("username")
+    
+    flash("Your account has been deleted", "danger")
+    return redirect("/register")
+
 
 

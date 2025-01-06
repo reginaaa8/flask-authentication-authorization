@@ -16,9 +16,16 @@
 <li>{{ feedback }} <a href="">edit</a> <a href="">delete</a></li>
 {% endfor %}
 </ul>
+<div>
+    <a href="">Add Feedback</a>
+</div>
+<div>
+    <a href="/logout">logout</a>
+</div>
+    <form action="/users/{{ user.username }}/delete" method="POST">
+        <button>Delete User</button>
+    </form>
+</div>
 
-<a href="">Add Feedback</a>
-<a href="/logout">logout</a>
-<a href="">Delete User</a>
 
 {% endblock %}
