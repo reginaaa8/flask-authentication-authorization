@@ -19,3 +19,4 @@ class UserLoginForm(FlaskForm):
     username = StringField("Username")
 
     password = PasswordField("Password")
+

@@ -2,7 +2,7 @@
 from flask import Flask, redirect, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, bcrypt, Feedback
-from forms import RegisterUserForm, UserLoginForm
+from forms import RegisterUserForm, UserLoginForm, FeedbackForm
 
 
 app = Flask(__name__)
@@ -91,6 +91,12 @@ def delete_user(username):
     
     flash("Your account has been deleted", "danger")
     return redirect("/")
+
+@app.route("users/<username>/feedback/add")
+def add_feedback(username):
+    """show form for user to add feedback"""
+    form = FeedbackForm()
+
 
 
 
