@@ -51,17 +51,18 @@ def user_login():
         user = User.authenticate(form.username.data, form.password.data)
         session["username"] = user.username
 
-        return redirect("/secret")
+        return redirect(f"/users/{user.username}")
 
     return render_template("user_login.html", form=form)
 
-@app.route("/secret")
-def secret():
-    """show logged in user secret page"""
-    if "username" in session:
-        return render_template("secret.html")
-    else:
-        return redirect("/login")
+@app.route("/users/<username>")
+def show_user_info(username):
+    """show logged in user their info"""
+    if "username" not in session or username != session['username']:
+        raise Unauthorized
+    user = User.query.get_or_404(username)
+
+    return render_template("user_info.html", user=user)
     
 @app.route("/logout")
 def logout():
