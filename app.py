@@ -90,7 +90,7 @@ def delete_user(username):
     session.pop("username")
     
     flash("Your account has been deleted", "danger")
-    return redirect("/register")
+    return redirect("/")
 
 
 
