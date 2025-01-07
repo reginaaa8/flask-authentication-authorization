@@ -15,7 +15,7 @@
     {% for feedback in user.feedback %}
     <h3>{{ feedback.title }}</h3>
     <p>{{ feedback.content}}</p>
-    <a href="" class="btn btn-primary btn-sm">edit</a> <a href="" class="btn btn-primary btn-sm">delete</a>
+    <a href="/feedback/{{ feedback.id }}/update" class="btn btn-primary btn-sm">edit</a> <a href="" class="btn btn-primary btn-sm">delete</a>
     {% endfor %}
 </div>
 
