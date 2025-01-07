@@ -92,13 +92,21 @@ def delete_user(username):
     flash("Your account has been deleted", "danger")
     return redirect("/")
 
-@app.route("/users/<username>/feedback/add")
+@app.route("/users/<username>/feedback/add", methods=['GET', 'POST'])
 def add_feedback(username):
     """show form for user to add feedback"""
     if "username" not in session or username != session['username']:
         flash("You are not authorized to view this page. Please sign in", "danger") 
         return redirect("/login")
     form = FeedbackForm()
+
+    if form.validate_on_submit():
+        feedback = Feedback(title=form.title.data, content=form.content.data, username=username)
+        
+        db.session.add(feedback)
+        db.session.commit()
+
+        return redirect(f"/users/{username}")
 
     return render_template("feedback.html", form=form)
 

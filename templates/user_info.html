@@ -11,11 +11,14 @@
 </ul>
 
 <h2>Feedback</h2>
-<ul>
-{% for feedback in user.feedback %}
-<li>{{ feedback }} <a href="">edit</a> <a href="">delete</a></li>
-{% endfor %}
-</ul>
+<div>
+    {% for feedback in user.feedback %}
+    <h3>{{ feedback.title }}</h3>
+    <p>{{ feedback.content}}</p>
+    <a href="">edit</a> <a href="">delete</a>
+    {% endfor %}
+</div>
+
 <div>
     <a href="/users/{{ user.username }}/feedback/add">Add Feedback</a>
 </div>
