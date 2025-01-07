@@ -15,18 +15,18 @@
     {% for feedback in user.feedback %}
     <h3>{{ feedback.title }}</h3>
     <p>{{ feedback.content}}</p>
-    <a href="">edit</a> <a href="">delete</a>
+    <a href="" class="btn btn-primary btn-sm">edit</a> <a href="" class="btn btn-primary btn-sm">delete</a>
     {% endfor %}
 </div>
 
 <div>
-    <a href="/users/{{ user.username }}/feedback/add">Add Feedback</a>
+    <a href="/users/{{ user.username }}/feedback/add" class="btn btn-primary">Add Feedback</a>
 </div>
 <div>
-    <a href="/logout">logout</a>
+    <a href="/logout" class="btn btn-primary">logout</a>
 </div>
     <form action="/users/{{ user.username }}/delete" method="POST">
-        <button>Delete User</button>
+        <button class="btn btn-primary">Delete User</button>
     </form>
 </div>
 
