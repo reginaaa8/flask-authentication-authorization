@@ -110,15 +110,24 @@ def add_feedback(username):
 
     return render_template("add_feedback.html", form=form)
 
-@app.route('/feedback/<int:feedback_id>/update')
+@app.route('/feedback/<int:feedback_id>/update', methods=["GET", "POST"])
 def update_feedback(feedback_id):
     """allow user to edit previously posted feedback"""
+
     feedback = Feedback.query.get_or_404(feedback_id)
+
     if "username" not in session or feedback.username != session['username']:
         flash("You are not authorized to view this page. Please sign in", "danger") 
         return redirect("/login")
     
     form = FeedbackForm()
+
+    if form.validate_on_submit():
+        feedback.title = form.title.data
+        feedback.content = form.content.data
+
+        db.session.commit()
+        return redirect(f'/users/{feedback.username}')
 
     form.title.data = feedback.title
     form.content.data = feedback.content
