@@ -133,6 +133,21 @@ def update_feedback(feedback_id):
     form.content.data = feedback.content
     
     return render_template("edit_feedback.html", form=form, feedback=feedback)
+
+@app.route('/feedback/<int:feedback_id>/delete', methods=["POST"])
+def delete_feedback(feedback_id):
+    '''delete feedback post'''
+    feedback = Feedback.query.get_or_404(feedback_id)
+
+    if "username" not in session or feedback.username != session['username']:
+        flash("You are not authorized to view this page. Please sign in", "danger") 
+        return redirect("/login")
+    
+    db.session.delete(feedback)
+    db.session.commit()
+
+    return redirect(f'/users/{feedback.username}')
+
     
 
 
